@@ -3,7 +3,7 @@ written by Heather C Keiser, copyright 2019.
 ------------------------------------------------------------------
 
 Instructions on how to use
-Create a csv UTF-8 file from an excell sheet. The excell sheet must have headers.
+Create a csv UTF-8 file from an excel sheet. The excell sheet must have headers.
 One column must have the header "find" and another column must have
 the header "replace". Open the csv file when prompted by the script,
 then every value in the find coolumn is found and replaced by the 
