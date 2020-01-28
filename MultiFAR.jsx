@@ -1,4 +1,4 @@
-/* JavaScript Find & Replace with Grep Indd script for catalog product copy
+﻿/* JavaScript Find & Replace with Grep Indd script for catalog product copy
 written by Heather C Keiser, copyright 2019.
 ------------------------------------------------------------------
 
@@ -36,26 +36,23 @@ if (myPropogate != null){
 	
 	//create an array of every row in the csv
 	var rows = myPropogate.split('\n');
-	//im getting an empty line at the end of this from a PC.
+    //im getting an empty line at the end of this from a PC.
     for (var empty = 0; empty<rows.length; empty++){
-		if (rows[empty] === ''){
-			rows.splice(empty, 1);
-		}
-	}
-
+            if (rows[empty] === ''){
+                rows.splice(empty, 1);
+                }
+        }
 	//now turn every element in the rows into an array (break it by columns)
 	for (var l = 0; l< rows.length; l++){
 		//add a comma to front and end of each line
 		var comma = ',';
 		rows[l] = comma.concat(rows[l], comma);
-           
 		var comIndices = [];
 		for (var n = 0; n < rows[l].length; n++) {
 			if (rows[l][n] === ',') {
 				comIndices.push(n);
 			}
 		}
-		
 		var skipIndex = -1;//starts neg so that first , always is a starter
 		var newrow = [];
 		//create array based off comma indicies
@@ -65,12 +62,11 @@ if (myPropogate != null){
 			var nextIndex = comIndices[r+checknext];
 			var lastIndex = comIndices[comIndices.length-1];
 			//need to reset skip index if on the last 2nd to last index in string & to set rows[i]
-                
 			if (r === comIndices.length-2){//this is last iteration and has not been represented in the while loop below
 				if (skipIndex === lastIndex){
 					//do nothing already pushed
 				}else{
-					newrow.push(rows[l].slice(curIndex + 1,nextIndex));
+                       newrow.push(rows[l].slice(curIndex + 1,nextIndex));
 				}
 				
 				skipIndex = -1;//reset skip for next loop set
@@ -79,7 +75,7 @@ if (myPropogate != null){
 			} else if (rows[l][curIndex+1] === '"'){//this section is a quote group
 				//while loop to find the end of the quote group
 				var quoteend = false;
-				while (quoteend === false){//need a check if nextIndex is last index
+				while (quoteend === false ){//need a check if nextIndex is last index
 					if (nextIndex === lastIndex){//this is last group
 							
 						newrow.push(rows[l].slice(curIndex + 1,nextIndex));
@@ -94,13 +90,13 @@ if (myPropogate != null){
 						checknext += 1;
 						nextIndex = comIndices[r+checknext];
 					}
+					tester += 1;
 				}//end while loop
                    
 			} else if (curIndex > skipIndex){//this section has no comma, and is not part of another comma push to next indici
-				newrow.push(rows[l].slice(curIndex + 1,nextIndex));
+                newrow.push(rows[l].slice(curIndex + 1,nextIndex));
 			} //else do nothing and go to next loop
 		}//end making the array based off commas
-            
 
         //now clean up all the extra quotes that the csv data created
 		for (var j=0; j<rows[l].length; j++){
@@ -115,7 +111,6 @@ if (myPropogate != null){
 			rows[l][j] = rows[l][j].replace(/"""/g,'"');
 			rows[l][j] = rows[l][j].replace(/""/g,'"');
 		}//end clean up quotes
-		
 	
 		//find the index of find & replace
 		var findIndex;
@@ -130,7 +125,7 @@ if (myPropogate != null){
 
     
 		//push values from every row by those indexes into appropriate arrays skip index0, as that is just headers
-		if (l > 0){
+        if (l > 0){
             myFind.push(rows[l][findIndex]);
             myReplace.push(rows[l][replaceIndex]);
         }///end push to find/replace
